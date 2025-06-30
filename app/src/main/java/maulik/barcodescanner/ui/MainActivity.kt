@@ -1,5 +1,7 @@
+
 package maulik.barcodescanner.ui
 
+import maulik.barcodescanner.ui.BarcodeScanningActivity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager

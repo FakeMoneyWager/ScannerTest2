@@ -1,23 +1,55 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!--
+      MODIFIED: Base application theme.
+      This is now the single theme for your entire app.
+      It inherits from a NoActionBar theme, sets the background,
+      and configures edge-to-edge display.
+    -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Original colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 1. Set the global background color -->
+        <item name="android:windowBackground">@color/app_background_grey</item>
+
+        <!-- 2. Make the status bar and navigation bar transparent -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <!-- 3. Make status bar icons (time, battery) dark for better visibility on a light background -->
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="FullScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
-
-    <style name="NoActionBarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor">@android:color/white</item>
-    </style>
+    <!--
+      DELETED: The "FullScreenTheme" and "NoActionBarTheme" are no longer needed
+      because their functionality is now built into the main AppTheme.
+    -->
 
     <style name="CardShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">25dp</item>
+    </style>
+
+    <style name="ModeButton" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="backgroundTint">@color/flash_button_background_color</item>
+        <item name="iconPadding">4dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="iconTint">@android:color/white</item>
+    </style>
+
+    <style name="QrDisplayButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">96dp</item>
+        <item name="android:layout_height">96dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="cornerRadius">48dp</item>
+        <item name="backgroundTint">@color/OrientationToggleButton</item>
     </style>
 
 </resources>

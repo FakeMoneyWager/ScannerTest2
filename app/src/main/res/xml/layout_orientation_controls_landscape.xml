@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConstraintSet xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--
+    FIX: Center the views vertically using a packed chain.
+    They will be stacked and centered within the fixed-size container.
+    -->
+    <Constraint
+        android:id="@+id/tvScannedValue">
+        <Layout
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnOrientationToggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+    </Constraint>
+
+    <Constraint
+        android:id="@+id/btnOrientationToggle">
+        <Layout
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvScannedValue" />
+    </Constraint>
+
+</ConstraintSet>
