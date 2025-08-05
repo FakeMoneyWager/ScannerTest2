@@ -11,13 +11,16 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_16sdp"
-        android:textSize="@dimen/_38sdp"
-        android:text="@string/app_name"
+        android:layout_marginTop="28dp"
         android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/holo_green_dark"
+        android:textStyle="bold"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,9 +28,9 @@
         android:id="@+id/cardMlKit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
+        android:layout_margin="16dp"
         app:cardBackgroundColor="@color/colorMLKitCard"
-        app:cardElevation="@dimen/_10sdp"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
@@ -42,44 +45,94 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="@dimen/_14sdp"
-                android:padding="@dimen/_16sdp"
+                android:textSize="24sp"
+                android:padding="16dp"
                 android:text="@string/scan_with_ml_kit"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardZxing"
+        android:id="@+id/cardViewPhotos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        app:cardBackgroundColor="@color/colorZxingCard"
-        app:cardElevation="@dimen/_10sdp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#A5D6A7"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardMlKit"
         app:shapeAppearance="@style/CardShape">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="Photos"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textSize="24sp" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/statsCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@android:color/darker_gray"
+        app:cardElevation="0dp"
+        app:strokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewPhotos">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Text for the Current Batch -->
+            <TextView
+                android:id="@+id/tvBatchStats"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                tools:text="Current Batch Totals:\nItem Count: 5\nImage Count: 15" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvCurrentBatchId"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="@dimen/_16sdp"
-                android:textSize="@dimen/_14sdp"
-                android:text="@string/scan_with_zxing"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+                android:gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                tools:text="Current Batch ID: BX00001" />
+
+            <!-- Text for the All-Time Count -->
+            <TextView
+                android:id="@+id/tvLifetimeStats"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                tools:text="All-Time Device Item Count: 152" />
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
+    <!-- END: NEW STATISTICS LAYOUT -->
+
 
     <TextView
         android:id="@+id/tv_developer"
@@ -87,9 +140,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:padding="@dimen/_16sdp"
-        android:textSize="@dimen/_12sdp"
+        android:padding="16dp"
         android:text="@string/developed_by_maulik_hirani"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

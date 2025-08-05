@@ -1,57 +1,56 @@
 package maulik.barcodescanner.ui
 
-import android.content.ContentUris
-import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import maulik.barcodescanner.databinding.ItemGalleryImageBinding
+import coil.load
+import maulik.barcodescanner.databinding.ItemImageThumbnailBinding
 
-class ImageThumbAdapter :
-    RecyclerView.Adapter<ImageThumbAdapter.ImgVH>() {
+class ImageThumbAdapter(
+    private val onImageClickListener: (Uri) -> Unit
+) : ListAdapter<Uri, ImageThumbAdapter.ImageViewHolder>(ImageDiffCallback()) {
 
-    private val images = mutableListOf<Uri>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+        val binding = ItemImageThumbnailBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ImageViewHolder(binding)
+    }
 
-    // ADD THIS LINE: A public property to hold the click listener lambda.
-    var onImageClickListener: ((Uri) -> Unit)? = null
+    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+        val uri = getItem(position)
+        holder.bind(uri, onImageClickListener)
+    }
 
-    fun submit(list: List<Uri>) { images.apply { clear(); addAll(list) }; notifyDataSetChanged() }
+    class ImageViewHolder(
+        private val binding: ItemImageThumbnailBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-    override fun onCreateViewHolder(p: ViewGroup, vType: Int) =
-        ImgVH(ItemGalleryImageBinding.inflate(
-            LayoutInflater.from(p.context), p, false))
-
-    override fun getItemCount() = images.size
-
-    override fun onBindViewHolder(h: ImgVH, pos: Int) = h.bind(images[pos])
-
-    inner class ImgVH(private val b: ItemGalleryImageBinding) :
-        RecyclerView.ViewHolder(b.root) {
-
-        fun bind(uri: Uri) {
-            // tiny 120×120 thumbnail from MediaStore
-            val bmp: Bitmap? = try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-                    b.root.context.contentResolver.loadThumbnail(uri,
-                        android.util.Size(120, 120), null)
-                else
-                    @Suppress("DEPRECATION")
-                    MediaStore.Images.Thumbnails.getThumbnail(
-                        b.root.context.contentResolver,
-                        // Use ContentUris to safely parse ID from content URI
-                        ContentUris.parseId(uri),
-                        MediaStore.Images.Thumbnails.MINI_KIND, null)
-            } catch (_: Exception) { null }
-
-            b.ivThumb.setImageBitmap(bmp)
-
-            // ADD THIS BLOCK: When an item is clicked, invoke the listener with the item's URI.
-            itemView.setOnClickListener {
-                onImageClickListener?.invoke(uri)
+        fun bind(uri: Uri, onImageClickListener: (Uri) -> Unit) {
+            binding.ivThumb.load(uri) {
+                crossfade(true)
+                // Reference icons from the Android framework's R class
+                placeholder(android.R.drawable.ic_menu_gallery)
+                error(android.R.drawable.ic_dialog_alert)
             }
+            binding.root.setOnClickListener {
+                onImageClickListener(uri)
+            }
+        }
+    }
+
+    class ImageDiffCallback : DiffUtil.ItemCallback<Uri>() {
+        override fun areItemsTheSame(oldItem: Uri, newItem: Uri): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Uri, newItem: Uri): Boolean {
+            return oldItem == newItem
         }
     }
 }

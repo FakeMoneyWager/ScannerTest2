@@ -8,7 +8,6 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     tools:context=".ui.GalleryActivity">
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,13 +25,12 @@
                 android:layout_height="0dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Back to Camera"
-                android:src="@drawable/ic_camera"
+                android:src="@android:drawable/ic_menu_revert"
                 app:layout_constraintBottom_toBottomOf="@+id/tilSearch"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tilSearch"
                 app:tint="?attr/colorOnPrimary" />
 
-            <!-- NEW UPLOAD BUTTON -->
             <ImageButton
                 android:id="@+id/btnUpload"
                 android:layout_width="48dp"
@@ -45,8 +43,19 @@
                 app:layout_constraintTop_toTopOf="@+id/tilSearch"
                 app:tint="?attr/colorOnPrimary" />
 
-            <!-- THIS IS THE CRITICAL CHANGE -->
-            <!-- Note that layout_constraintStart_toEndOf is now pointing to @id/btnUpload -->
+            <!-- NEW EXPORT BUTTON -->
+            <ImageButton
+                android:id="@+id/btnExportLog"
+                android:layout_width="48dp"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Export Scan Log"
+                android:src="@android:drawable/ic_menu_save"
+                app:layout_constraintBottom_toBottomOf="@+id/tilSearch"
+                app:layout_constraintStart_toEndOf="@id/btnUpload"
+                app:layout_constraintTop_toTopOf="@+id/tilSearch"
+                app:tint="?attr/colorOnPrimary" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilSearch"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -54,18 +63,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:hint="Search by QR Code"
+                android:textColorHint="@android:color/white"
+                app:boxStrokeColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnUpload"
+                app:layout_constraintStart_toEndOf="@id/btnExportLog"
                 app:layout_constraintTop_toTopOf="parent"
-                app:startIconDrawable="@android:drawable/ic_menu_search">
+                app:startIconDrawable="@android:drawable/ic_menu_search"
+                app:startIconTint="@android:color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLines="1" />
-
+                    android:maxLines="1"
+                    android:textColor="@android:color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -77,7 +89,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilSearch"
-                tools:text="Showing 15 records with a total of 42 images." />
+                tools:text="Showing 15 pending records with a total of 42 images." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -89,6 +101,5 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_gallery_group"/>
-
+        tools:listitem="@layout/item_group_gallery"/>
 </LinearLayout>

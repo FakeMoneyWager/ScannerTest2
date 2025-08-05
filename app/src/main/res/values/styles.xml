@@ -1,10 +1,5 @@
 <resources>
-    <!--
-      MODIFIED: Base application theme.
-      This is now the single theme for your entire app.
-      It inherits from a NoActionBar theme, sets the background,
-      and configures edge-to-edge display.
-    -->
+    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Original colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -18,18 +13,13 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
 
-        <!-- 3. Make status bar icons (time, battery) dark for better visibility on a light background -->
-        <item name="android:windowLightStatusBar">true</item>
+        <!-- 3. MODIFIED: Make status bar icons light for visibility on a dark background -->
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <!--
-      DELETED: The "FullScreenTheme" and "NoActionBarTheme" are no longer needed
-      because their functionality is now built into the main AppTheme.
-    -->
-
     <style name="CardShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">cut</item>
-        <item name="cornerSize">25dp</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <style name="ModeButton" parent="Widget.MaterialComponents.Button.Icon">
@@ -44,12 +34,11 @@
         <item name="iconTint">@android:color/white</item>
     </style>
 
+    <!-- DELETED: This style is no longer used for the new UI design -->
+    <!--
     <style name="QrDisplayButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_width">96dp</item>
-        <item name="android:layout_height">96dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="cornerRadius">48dp</item>
-        <item name="backgroundTint">@color/OrientationToggleButton</item>
+        ...
     </style>
+    -->
 
 </resources>

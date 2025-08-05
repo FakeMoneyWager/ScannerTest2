@@ -1,19 +1,21 @@
-
 package maulik.barcodescanner.ui
 
-import maulik.barcodescanner.ui.BarcodeScanningActivity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import maulik.barcodescanner.BatchNumberManager
+import maulik.barcodescanner.database.AppDatabase
 import maulik.barcodescanner.databinding.ActivityMainBinding
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,16 +25,54 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupClickListeners()
+    }
 
-        binding.cardMlKit.setOnClickListener {
+    override fun onResume() {
+        super.onResume()
+        // Refresh the database stats every time the user returns to this screen
+        updateDashboardStats()
+    }
+
+    private fun setupClickListeners() = with(binding) {
+        cardMlKit.setOnClickListener {
             selectedScanningSDK = BarcodeScanningActivity.ScannerSDK.MLKIT
             startScanning()
         }
-        binding.cardZxing.setOnClickListener {
-            selectedScanningSDK = BarcodeScanningActivity.ScannerSDK.ZXING
-            startScanning()
+        cardViewPhotos.setOnClickListener {
+            startActivity(Intent(this@MainActivity, GalleryActivity::class.java))
+        }
+    }
+
+    /**
+     * Fetches counts for the current batch and the lifetime total, then updates the UI.
+     */
+    private fun updateDashboardStats() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(applicationContext)
+            val pendingStatus = "PENDING_UPLOAD"
+
+            // --- Background Thread Work ---
+            // Fetch all counts from the database and the batch ID from SharedPreferences
+            val pendingRecordCount = db.scanLogDao().getLogCountByStatus(pendingStatus)
+            val pendingImageCount = db.photoDao().getPhotoCountByStatus(pendingStatus)
+            val totalRecordCount = db.scanLogDao().getLogCount()
+            val currentBatchId = BatchNumberManager.getCurrentBatchId(this@MainActivity)
+
+            // --- Switch to Main Thread to Update All UI ---
+            withContext(Dispatchers.Main) {
+                // Build the multi-line string for the Current Batch
+                binding.tvBatchStats.text =
+                    "Current Batch Totals:\nItem Count: $pendingRecordCount\nImage Count: $pendingImageCount"
+
+                // Set the text for the new Batch ID display
+                binding.tvCurrentBatchId.text = "Current Batch ID: $currentBatchId"
+
+                // Build the string for the Lifetime Total
+                binding.tvLifetimeStats.text = "All-Time Item Count: $totalRecordCount"
+            }
         }
     }
 

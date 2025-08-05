@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    // UPDATE KSP version to match your Kotlin version (1.9.22)
+    id 'com.google.devtools.ksp' version '1.9.22-1.0.17'
 }
 
 android {
@@ -23,7 +25,24 @@ android {
     namespace 'maulik.barcodescanner'
 }
 
+// ADD this repositories block
+repositories {
+    google()
+    mavenCentral()
+    // Add JitPack repository for the PhotoView library
+    maven { url 'https://jitpack.io' }
+    // jcenter() is deprecated and should be removed if it's in your settings.gradle
+    // jcenter()
+}
+
 dependencies {
+    /* ---- Room Database ---- */
+    def room_version = "2.6.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
+
+
     /* ---- Cloudinary ---- */
     implementation 'com.cloudinary:cloudinary-android:2.4.0'
 
@@ -36,7 +55,8 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    // Updated ConstraintLayout to a stable version
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -48,10 +68,13 @@ dependencies {
     implementation "androidx.camera:camera-view:$camerax_version"
     implementation 'com.google.mlkit:barcode-scanning:17.2.0'
     implementation 'com.google.zxing:core:3.5.1'
-    //
-    // THIS IS THE FIX: Add the Guava dependency that provides ListenableFuture
     implementation "com.google.guava:guava:31.1-android"
-    //
+
+    /* ---- Coil Image Loading ---- */
+    implementation("io.coil-kt:coil:2.6.0")
+
+    /* ---- PhotoView for Pinch-to-Zoom ---- */
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     /* ---- misc ---- */
     implementation 'com.intuit.sdp:sdp-android:1.1.0'

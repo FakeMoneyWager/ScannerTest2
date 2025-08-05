@@ -10,7 +10,6 @@
     <string name="scanner_library">Scanner Library</string>
     <string name="result">Result</string>
     <string name="copy">Copy</string>
-    <string name="scan_with_ml_kit">Add Inventory Photos</string>
-    <string name="scan_with_zxing">View Current Photos</string>
+    <string name="scan_with_ml_kit">Camera</string>
     <string name="developed_by_maulik_hirani">"Developed By Richard L."</string>
 </resources>

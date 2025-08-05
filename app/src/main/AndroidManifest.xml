@@ -5,6 +5,10 @@
     <!-- add *both* so the right one is requested at runtime -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- START OF FIX: Add permission to write files on older Android versions -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <!-- END OF FIX -->
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application

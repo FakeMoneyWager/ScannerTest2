@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorCopyButton">#00897B</color>
-    <color name="colorMLKitCard">#FFCCBC</color>
+    <color name="colorMLKitCard">#4CAF50</color>
     <color name="colorZxingCard">#BBDEFB</color>
     <color name="OrientationToggleButton">#1E3A8A</color>
     <color name="flash_button_background_color">#80000000</color>
@@ -12,7 +12,9 @@
     <color name="barcode_reticle_background">#99000000</color>
     <color name="barcode_reticle_stroke">#ffffff</color>
 
-    <!-- ADD THIS LINE -->
-    <color name="app_background_grey">#F5F5F5</color> <!-- A light material grey, you can change this hex value -->
+    <!-- MODIFIED: Changed to a dark charcoal grey for the main app background -->
+    <color name="app_background_grey">#212121</color>
+    <!-- ADDED: A darker color for the new controls panel background -->
+    <color name="controls_background">#1A1A1A</color>
 
 </resources>
